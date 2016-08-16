@@ -10,7 +10,7 @@ The code works using sockets from C language to communicate between two points: 
 
  The server has a binding port hard coded (default 7777) and the client requires the arguments [TARGET_HOST_IP_ADDRESS] and [PORT] to work properly. The server has a hard coded password as well (default "password"), and it is the first message you will need to send to perform authentication when the client connects.
  
- # Usage Example
+# Example
  
  ./server
  ./client [TARGET_HOST_IP_ADDRESS] [PORT]
