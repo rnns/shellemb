@@ -12,6 +12,5 @@ The code works using sockets from C language to communicate between two points: 
  
 # Example
  
- ./server
- ./client [TARGET_HOST_IP_ADDRESS] [PORT]
+ ./server and ./client [TARGET_HOST_IP_ADDRESS] [PORT]
  
