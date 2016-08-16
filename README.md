@@ -1,6 +1,6 @@
 ## Description
 
-ShellEmb is a C command execution shell programmed for embedded devices(more specifically tested in routers) in a client/server scenario. The objective of this project is to work similarly to a ncat tool, but saving space by being as light as possible to not occupy too much of embedded's memory. In here you will find the source code, binaries already compiled and stripped binaries for some architectures. If you wish to use it for an architecture that is not present in binaries folder, just grab the code and compile it with -static flag.
+ShellEmb is a C command execution shell programmed for embedded devices(more specifically tested in routers) in a client/server scenario. The objective of this project is to work similarly to ncat, but saving space by being as light as possible to not occupy too much of embedded's memory. In here you will find the source code, binaries already compiled and stripped binaries for some architectures. If you wish to use it for an architecture that is not present in binaries folder, just grab the code and compile it with -static flag.
 
 ## Functionallity
 
