@@ -1,12 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/socket.h>
 #include <netinet/in.h>
-#define portno 7777 // port that is going to be binded
+#include <signal.h>
+#define portno 1234 // port that is going to be used
+
+int connected = 0, loop, newsockfd;
+
+// exception handling on broken connection pipe
+void sig_pipe(int signum)
+{
+	printf("broken socket pipe\n");
+	connected = 0;
+	loop = 0;
+	if (newsockfd) close(newsockfd);
+	signal(SIGPIPE, sig_pipe);
+}
 
 int main(int argc, char *argv[])
 {
-	int sockfd, newsockfd, i, loop;
+	int sockfd, i;
 	socklen_t clilen;
 	char buffer[1024], buffer2[1024];
 	char* cmdout;
@@ -44,6 +58,9 @@ int main(int argc, char *argv[])
 
 		while(1) {
                 	
+			// exception handling on function sig_pipe
+			signal(SIGPIPE, sig_pipe);
+
 			// acceptance of incoming connection 
      			newsockfd = accept(sockfd,(struct sockaddr *) &cli_addr, &clilen);
      			if (newsockfd < 0) {
@@ -53,9 +70,10 @@ int main(int argc, char *argv[])
 			} else {
 
 				printf("new socket connection accepted\n");
-				
+				connected = 1;
+
 				// athentication of connected client
-				while(1) {
+				while(connected) {
 					i=0;
 					while(i<1024 && buffer[i]!='\0') {buffer[i]='\0';i++;}
 					if (read(newsockfd,buffer,1024) < 0) printf("error on reading socket to validate client");
@@ -93,6 +111,7 @@ int main(int argc, char *argv[])
 						// end connection case, when user digits quit
 						if (strncmp(buffer, "quit\n", 5) == 0) {
 							loop = 0;
+							connected = 0;
 							printf("user disconnected\n");
 							write(newsockfd,"disconnected\n", 13);
 
