@@ -8,10 +8,13 @@ The code works using sockets from C language to communicate between two points: 
 
 ## Usage
 
- The server has a binding port hard coded (default 7777) and the client requires the arguments [TARGET_HOST_IP_ADDRESS] and [PORT] to work properly. The server has a hard coded password as well (default "password"), and it is the first message you will need to send to perform authentication when the client connects.
+ The server has a binding port hard coded (default 7777) and the client requires the arguments [SERVER_IP_ADDRESS] and [PORT] to work properly. The server has a hard coded password (default "password") required to allow the command execution on shell. It is the first message you will need to send to perform authentication as the client. 
+ It is possible to access and use the shell with netcat too. As long as the first message sent with netcat is the required password, the following commands will be executed and the output will be returned.
+ Command execution errors outputed by the shell to stderr will not be returned to the client.
+ Type help or h after authentication to receive a little help text.
  
 ## Example
 ```
 ./server
-./client [TARGET_HOST_IP_ADDRESS] [PORT]
+./client [SERVER_IP_ADDRESS] [PORT]
 ```
